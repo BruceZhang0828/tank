@@ -4,6 +4,43 @@ import java.awt.*;
 
 public class Tank {
 
+    //移动单元长度
+    private static final int SPEED =10;
+
+    //坦克坐标
+    private int x,y;
+    //坦克的朝向
+    private Dir dir = Dir.DOWN;
+    //坦克移动的状态
+    private boolean moving = false;
+
+    public Tank(int x, int y, Dir dir) {
+        this.x = x;
+        this.y = y;
+        this.dir = dir;
+    }
+
+    public void paint(Graphics g) {
+        //绘制一个正方形
+        g.fillRect(x, y, 50, 50);
+        if (!this.moving) return;
+        switch (dir) {
+            case LEFT:
+                x -= SPEED;
+                break;
+            case UP:
+                y -= SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+        }
+    }
+
+
     public int getX() {
         return x;
     }
@@ -28,41 +65,12 @@ public class Tank {
         this.dir = dir;
     }
 
-    private static final int SPEED =10;
 
-    private int x,y;
-
-    private Dir dir = Dir.DOWN;
-
-
-    public Tank(int x, int y, Dir dir) {
-        this.x = x;
-        this.y = y;
-        this.dir = dir;
+    public boolean isMoving() {
+        return moving;
     }
 
-    public void paint(Graphics g) {
-        //绘制一个正方形
-        g.fillRect(x, y, 50, 50);
-        //x += 10;
-        //y += 10;
-
-        switch (dir) {
-            case LEFT:
-                x -= SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-        }
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
-
-
-
 }

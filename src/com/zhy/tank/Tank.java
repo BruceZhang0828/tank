@@ -11,13 +11,16 @@ public class Tank {
     private int x,y;
     //坦克的朝向
     private Dir dir = Dir.DOWN;
+    //绘制坦克的窗口
+    private TankFrame tf;
     //坦克移动的状态
     private boolean moving = false;
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf =tf;
     }
 
     public void paint(Graphics g) {
@@ -75,5 +78,12 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    /**
+     * 坦克发射子弹方法
+     */
+    public void fire() {
+        tf.b = new Bullet(this.x, this.y,this.dir);
     }
 }

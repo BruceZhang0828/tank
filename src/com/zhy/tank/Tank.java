@@ -22,7 +22,10 @@ public class Tank {
 
     public void paint(Graphics g) {
         //绘制一个正方形
+        Color color = g.getColor();
+        g.setColor(Color.YELLOW);
         g.fillRect(x, y, 50, 50);
+        g.setColor(color);
         if (!this.moving) return;
         switch (dir) {
             case LEFT:

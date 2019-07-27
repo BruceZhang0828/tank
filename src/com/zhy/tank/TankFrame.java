@@ -8,9 +8,7 @@ import java.awt.event.WindowEvent;
 
 public class TankFrame extends Frame {
 
-    Dir dir = Dir.DOWN;
-
-    private static final int speed = 10;
+    private static final int GAME_WIDTH = 800,GAME_HEIGHT =600;
 
     Tank myTank = new Tank(200, 200, Dir.DOWN);
 
@@ -20,7 +18,7 @@ public class TankFrame extends Frame {
 
         this.setVisible(true);
         this.setResizable(false);
-        this.setSize(800, 600);
+        this.setSize(GAME_WIDTH, GAME_HEIGHT);
         this.setTitle("Tank War");
 
         this.addWindowListener(new WindowAdapter() {
@@ -35,6 +33,20 @@ public class TankFrame extends Frame {
     }
 
 
+    Image offScreenImage = null;
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color color = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.setColor(color);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage, 0, 0, null);
+    }
 
     /**
      * 绘制方法

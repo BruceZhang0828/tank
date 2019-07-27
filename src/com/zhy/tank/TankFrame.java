@@ -14,6 +14,8 @@ public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200, 200, Dir.DOWN);
 
+    Bullet b = new Bullet(200, 200, Dir.DOWN);
+
     public TankFrame() throws HeadlessException {
 
         this.setVisible(true);
@@ -43,6 +45,7 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
 
         myTank.paint(g);
+        b.paint(g);
     }
 
 

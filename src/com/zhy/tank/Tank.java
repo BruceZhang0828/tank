@@ -25,10 +25,30 @@ public class Tank {
 
     public void paint(Graphics g) {
         //绘制一个正方形
-        Color color = g.getColor();
+        /*Color color = g.getColor();
         g.setColor(Color.YELLOW);
         g.fillRect(x, y, 50, 50);
-        g.setColor(color);
+        g.setColor(color);*/
+        switch (dir) {
+            case LEFT:
+                g.drawImage(ResourceMgr.tankL, this.x, this.y,null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.tankU, this.x, this.y,null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.tankR, this.x, this.y,null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.tankD, this.x, this.y,null);
+                break;
+        }
+        move();
+
+    }
+
+
+    private void move() {
         if (!this.moving) return;
         switch (dir) {
             case LEFT:
@@ -44,6 +64,14 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+    }
+
+
+    /**
+     * 坦克发射子弹方法
+     */
+    public void fire() {
+        tf.bullets.add (new Bullet(this.x+25, this.y+25,this.dir,this.tf)) ;
     }
 
 
@@ -80,10 +108,5 @@ public class Tank {
         this.moving = moving;
     }
 
-    /**
-     * 坦克发射子弹方法
-     */
-    public void fire() {
-        tf.bullets.add (new Bullet(this.x+25, this.y+25,this.dir,this.tf)) ;
-    }
+
 }

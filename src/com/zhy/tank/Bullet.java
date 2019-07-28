@@ -17,7 +17,9 @@ public class Bullet {
     private int x,y;
     private Dir dir = Dir.DOWN;
 
-    // private static final int WIDTH = 10,HEIGHT=10;
+     private Group group = Group.BAD;
+
+   // private static final int WIDTH = 10,HEIGHT=10;
 
     TankFrame tf;
 
@@ -80,6 +82,14 @@ public class Bullet {
         this.tf = tf;
     }
 
+    public Bullet(int x, int y, Dir dir,TankFrame tf,Group group) {
+        this.x = x;
+        this.y = y;
+        this.dir = dir;
+        this.tf = tf;
+        this.group = group;
+    }
+
     public int getX() {
         return x;
     }
@@ -109,6 +119,9 @@ public class Bullet {
      * @param tank
      */
     public void collideWith(Tank tank) {
+
+        if (this.group == tank.getGroup()) return;
+
         Rectangle r1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
         Rectangle r2 = new Rectangle(tank.getX(), tank.getY(), tank.WIDTH, tank.HEIGHT);
         //两个图片相交

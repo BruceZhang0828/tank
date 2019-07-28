@@ -1,11 +1,12 @@
 package com.zhy.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
 
     //移动单元长度
-    private static final int SPEED =10;
+    private static final int SPEED =5;
 
     public static final int WIDTH = ResourceMgr.tankD.getWidth();
     public static final int HEIGHT = ResourceMgr.tankD.getHeight();
@@ -17,15 +18,20 @@ public class Tank {
     //绘制坦克的窗口
     private TankFrame tf;
     //坦克移动的状态
-    private boolean moving = false;
+    private boolean moving = true;
 
     boolean removeFlag = false;
 
-    public Tank(int x, int y, Dir dir,TankFrame tf) {
+    Random random = new Random();
+
+    private Group group = Group.BAD;
+
+    public Tank(int x, int y, Dir dir,TankFrame tf,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf =tf;
+        this.group = group;
     }
 
     public void paint(Graphics g) {
@@ -39,7 +45,6 @@ public class Tank {
             tf.tanks.remove(this);
             return;
         }
-
         switch (dir) {
             case LEFT:
                 g.drawImage(ResourceMgr.tankL, this.x, this.y,null);
@@ -75,6 +80,7 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+        if (random.nextInt(10)>8) this.fire();
     }
 
 
@@ -84,7 +90,7 @@ public class Tank {
     public void fire() {
         int bX = this.x+this.WIDTH/2-Bullet.WIDTH/2;
         int bY = this.y+this.HEIGHT/2-Bullet.HEIGHT/2;
-        tf.bullets.add (new Bullet(bX, bY,this.dir,this.tf)) ;
+        tf.bullets.add (new Bullet(bX, bY,this.dir,this.tf,this.group)) ;
     }
 
 
@@ -126,5 +132,13 @@ public class Tank {
      */
     public void die() {
         this.removeFlag = true;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

@@ -23,8 +23,8 @@ public class TankFrame extends Frame {
     private boolean isExplode  = false;
 
     //创建一个爆照效果
-    Explode e = null;
-
+    //Explode e = null;
+    List<Explode> explodes = new ArrayList<>();
     public boolean isExplode() {
         return isExplode;
     }
@@ -74,11 +74,12 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {
-
+        Color c = g.getColor();
+        g.setColor(Color.WHITE);
         g.drawString("子弹的数量:" + this.bullets.size(), 10, 60);
         g.drawString("敌人坦克数量:"+this.tanks.size(),10 , 80);
-
-
+        g.drawString("爆炸数量:"+this.explodes.size(),10 , 100);
+        g.setColor(c);
         myTank.paint(g);
 
         //使用迭代器容易出现异常ConcurrentModificationException
@@ -103,7 +104,9 @@ public class TankFrame extends Frame {
         }
 
         if (this.isExplode) {
-            e.paint(g);
+            for (int i = 0; i < explodes.size(); i++) {
+                explodes.get(i).paint(g);
+            }
         }
 
     }
@@ -182,11 +185,4 @@ public class TankFrame extends Frame {
         }
     }
 
-    public Explode getE() {
-        return e;
-    }
-
-    public void setE(Explode e) {
-        this.e = e;
-    }
 }

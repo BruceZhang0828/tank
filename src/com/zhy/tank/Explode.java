@@ -23,7 +23,7 @@ public class Explode {
         if (this.setp>=ResourceMgr.explodes.length){
             setp = 0;
             this.tf.setExplode(false);
-            this.tf.setE(null);
+            this.tf.explodes.remove(this);
         }
     }
 

@@ -24,10 +24,25 @@ public class Bullet {
         if (removeFlag) {
             this.tf.bullets.remove(this);
         } else {
-            Color color = g.getColor();
-            g.setColor(Color.RED);
-            g.fillOval(this.x, this.y, WIDTH, HEIGHT);
-            g.setColor(color);
+//            Color color = g.getColor();
+//            g.setColor(Color.RED);
+//            g.fillOval(this.x, this.y, WIDTH, HEIGHT);
+//            g.setColor(color);
+
+            switch (dir) {
+                case LEFT:
+                    g.drawImage(ResourceMgr.bulletL, this.x, this.y,null);
+                    break;
+                case UP:
+                    g.drawImage(ResourceMgr.bulletU, this.x, this.y,null);
+                    break;
+                case RIGHT:
+                    g.drawImage(ResourceMgr.bulletR, this.x, this.y,null);
+                    break;
+                case DOWN:
+                    g.drawImage(ResourceMgr.bulletD, this.x, this.y,null);
+                    break;
+            }
             move();
         }
     }

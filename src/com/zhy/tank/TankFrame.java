@@ -5,14 +5,18 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankFrame extends Frame {
 
-    private static final int GAME_WIDTH = 800,GAME_HEIGHT =600;
+    static final int GAME_WIDTH = 800,GAME_HEIGHT =600;
 
     Tank myTank = new Tank(200, 200, Dir.DOWN,this);
 
-    Bullet b = new Bullet(200, 200, Dir.DOWN);
+    List<Bullet> bullets = new ArrayList<>();
+    // Bullet b = new Bullet(200, 200, Dir.DOWN);
 
     public TankFrame() throws HeadlessException {
 
@@ -57,7 +61,16 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
 
         myTank.paint(g);
-        b.paint(g);
+
+        //使用迭代器容易出现异常ConcurrentModificationException
+        /*for (Bullet b :
+                bullets) {
+            b.paint(g);
+        }*/
+        for (int i = 0; i < this.bullets.size(); i++) {
+            this.bullets.get(i).paint(g);
+        }
+
     }
 
 

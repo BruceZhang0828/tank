@@ -84,6 +84,6 @@ public class Tank {
      * 坦克发射子弹方法
      */
     public void fire() {
-        tf.b = new Bullet(this.x, this.y,this.dir);
+        tf.bullets.add (new Bullet(this.x+25, this.y+25,this.dir,this.tf)) ;
     }
 }

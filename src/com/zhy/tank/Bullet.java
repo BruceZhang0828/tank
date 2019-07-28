@@ -14,12 +14,22 @@ public class Bullet {
 
     private static final int WIDTH = 10,HEIGHT=10;
 
+    TankFrame tf;
+
+
+    private boolean removeFlag = false;
+
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.RED);
-        g.fillOval(this.x, this.y, WIDTH, HEIGHT);
-        g.setColor(color);
-        move();
+
+        if (removeFlag) {
+            this.tf.bullets.remove(this);
+        } else {
+            Color color = g.getColor();
+            g.setColor(Color.RED);
+            g.fillOval(this.x, this.y, WIDTH, HEIGHT);
+            g.setColor(color);
+            move();
+        }
     }
 
     private void move(){
@@ -37,12 +47,17 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
+
+        if (x<0||y<0||x>TankFrame.GAME_WIDTH||y>TankFrame.GAME_HEIGHT) {
+            removeFlag = true;
+        }
     }
 
-    public Bullet(int x, int y, Dir dir) {
+    public Bullet(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
     }
 
     public int getX() {

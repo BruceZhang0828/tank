@@ -7,6 +7,9 @@ public class Tank {
     //移动单元长度
     private static final int SPEED =10;
 
+    public static final int WIDTH = ResourceMgr.tankD.getWidth();
+    public static final int HEIGHT = ResourceMgr.tankD.getHeight();
+
     //坦克坐标
     private int x,y;
     //坦克的朝向
@@ -71,7 +74,9 @@ public class Tank {
      * 坦克发射子弹方法
      */
     public void fire() {
-        tf.bullets.add (new Bullet(this.x+25, this.y+25,this.dir,this.tf)) ;
+        int bX = this.x+this.WIDTH/2-Bullet.WIDTH/2;
+        int bY = this.y+this.HEIGHT/2-Bullet.HEIGHT/2;
+        tf.bullets.add (new Bullet(bX, bY,this.dir,this.tf)) ;
     }
 
 

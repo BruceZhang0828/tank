@@ -9,10 +9,13 @@ public class Bullet {
     //移动单元长度
     private static final int SPEED =10;
 
+    public static final int WIDTH = ResourceMgr.bulletD.getWidth();
+    public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
+
     private int x,y;
     private Dir dir = Dir.DOWN;
 
-    private static final int WIDTH = 10,HEIGHT=10;
+    // private static final int WIDTH = 10,HEIGHT=10;
 
     TankFrame tf;
 

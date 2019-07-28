@@ -8,8 +8,8 @@ public class Tank {
     //移动单元长度
     private static final int SPEED =5;
 
-    public static final int WIDTH = ResourceMgr.tankD.getWidth();
-    public static final int HEIGHT = ResourceMgr.tankD.getHeight();
+    public static final int WIDTH = ResourceMgr.tankU.getWidth();
+    public static final int HEIGHT = ResourceMgr.tankU.getHeight();
 
     //坦克坐标
     private int x,y;

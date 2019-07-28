@@ -1,5 +1,7 @@
 package com.zhy.tank;
 
+import sun.java2d.loops.FillRect;
+
 import java.awt.*;
 
 /**
@@ -100,5 +102,23 @@ public class Bullet {
 
     public void setDir(Dir dir) {
         this.dir = dir;
+    }
+
+    /**
+     * 子弹与坦克的碰撞测试
+     * @param tank
+     */
+    public void collideWith(Tank tank) {
+        Rectangle r1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
+        Rectangle r2 = new Rectangle(tank.getX(), tank.getY(), tank.WIDTH, tank.HEIGHT);
+        //两个图片相交
+        if (r1.intersects(r2)){
+            this.die(); //子弹销毁
+            tank.die(); //坦克销毁
+        }
+    }
+
+    private void die() {
+        this.removeFlag  = true;
     }
 }

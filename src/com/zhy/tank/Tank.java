@@ -19,6 +19,8 @@ public class Tank {
     //坦克移动的状态
     private boolean moving = false;
 
+    boolean removeFlag = false;
+
     public Tank(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
         this.y = y;
@@ -32,6 +34,12 @@ public class Tank {
         g.setColor(Color.YELLOW);
         g.fillRect(x, y, 50, 50);
         g.setColor(color);*/
+
+        if (this.removeFlag) {
+            tf.tanks.remove(this);
+            return;
+        }
+
         switch (dir) {
             case LEFT:
                 g.drawImage(ResourceMgr.tankL, this.x, this.y,null);
@@ -113,5 +121,10 @@ public class Tank {
         this.moving = moving;
     }
 
-
+    /**
+     * 坦克销毁方法
+     */
+    public void die() {
+        this.removeFlag = true;
+    }
 }

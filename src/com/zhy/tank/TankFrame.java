@@ -16,7 +16,9 @@ public class TankFrame extends Frame {
     Tank myTank = new Tank(200, 200, Dir.DOWN,this);
 
     List<Bullet> bullets = new ArrayList<>();
-    // Bullet b = new Bullet(200, 200, Dir.DOWN);
+
+     List<Tank> tanks = new ArrayList<>();
+   // Bullet b = new Bullet(200, 200, Dir.DOWN);
 
     public TankFrame() throws HeadlessException {
 
@@ -60,6 +62,10 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
 
+        g.drawString("子弹的数量:" + this.bullets.size(), 10, 60);
+        g.drawString("敌人坦克数量:"+this.tanks.size(),10 , 80);
+
+
         myTank.paint(g);
 
         //使用迭代器容易出现异常ConcurrentModificationException
@@ -69,6 +75,18 @@ public class TankFrame extends Frame {
         }*/
         for (int i = 0; i < this.bullets.size(); i++) {
             this.bullets.get(i).paint(g);
+        }
+
+        for (int i = 0; i < this.tanks.size(); i++) {
+            Tank tank = this.tanks.get(i);
+            tank.paint(g);
+        }
+
+        for (int i = 0; i < this.bullets.size(); i++) {
+
+            for (int j = 0; j < this.tanks.size(); j++) {
+                this.bullets.get(i).collideWith(this.tanks.get(j));
+            }
         }
 
     }

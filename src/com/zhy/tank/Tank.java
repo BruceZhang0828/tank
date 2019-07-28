@@ -18,11 +18,14 @@ public class Tank {
     //绘制坦克的窗口
     private TankFrame tf;
     //坦克移动的状态
-    private boolean moving = true;
+    private boolean moving = false;
 
     boolean removeFlag = false;
 
     Random random = new Random();
+
+    //创建一个爆照效果
+    Explode e = null;
 
     private Group group = Group.BAD;
 
@@ -132,6 +135,10 @@ public class Tank {
      */
     public void die() {
         this.removeFlag = true;
+        int bX = this.x+WIDTH/2-ResourceMgr.explodes[0].getWidth()/2;
+        int bY = this.y+HEIGHT/2-ResourceMgr.explodes[0].getHeight()/2;
+        this.tf.setE(new Explode(bX,bY, this.tf));
+        this.tf.setExplode(true);
     }
 
     public Group getGroup() {

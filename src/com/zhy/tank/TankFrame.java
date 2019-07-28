@@ -20,6 +20,19 @@ public class TankFrame extends Frame {
      List<Tank> tanks = new ArrayList<>();
    // Bullet b = new Bullet(200, 200, Dir.DOWN);
 
+    private boolean isExplode  = false;
+
+    //创建一个爆照效果
+    Explode e = null;
+
+    public boolean isExplode() {
+        return isExplode;
+    }
+
+    public void setExplode(boolean explode) {
+        isExplode = explode;
+    }
+
     public TankFrame() throws HeadlessException {
 
         this.setVisible(true);
@@ -87,6 +100,10 @@ public class TankFrame extends Frame {
             for (int j = 0; j < this.tanks.size(); j++) {
                 this.bullets.get(i).collideWith(this.tanks.get(j));
             }
+        }
+
+        if (this.isExplode) {
+            e.paint(g);
         }
 
     }
@@ -163,5 +180,13 @@ public class TankFrame extends Frame {
                 if (bD) myTank.setDir(Dir.DOWN);
             }
         }
+    }
+
+    public Explode getE() {
+        return e;
+    }
+
+    public void setE(Explode e) {
+        this.e = e;
     }
 }

@@ -27,10 +27,6 @@ public class Explode {
         }
     }
 
-
-
-
-
     public int getX() {
         return x;
     }

@@ -8,8 +8,8 @@ public class Tank {
     //移动单元长度
     private static final int SPEED =5;
 
-    public static final int WIDTH = ResourceMgr.tankU.getWidth();
-    public static final int HEIGHT = ResourceMgr.tankU.getHeight();
+    public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
+    public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
 
     //坦克坐标
     private int x,y;
@@ -18,7 +18,7 @@ public class Tank {
     //绘制坦克的窗口
     private TankFrame tf;
     //坦克移动的状态
-    private boolean moving = false;
+    private boolean moving = true;
 
     boolean removeFlag = false;
 
@@ -50,16 +50,16 @@ public class Tank {
         }
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.tankL, this.x, this.y,null);
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankL:ResourceMgr.badTankL, this.x, this.y,null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.tankU, this.x, this.y,null);
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankU:ResourceMgr.badTankU, this.x, this.y,null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR, this.x, this.y,null);
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankR:ResourceMgr.badTankR, this.x, this.y,null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD, this.x, this.y,null);
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankD:ResourceMgr.badTankD, this.x, this.y,null);
                 break;
         }
         move();
@@ -83,7 +83,20 @@ public class Tank {
                 y += SPEED;
                 break;
         }
-        if (random.nextInt(10)>8) this.fire();
+        if (this.group==Group.BAD && random.nextInt(10)>8) this.fire();
+
+        if (this.group == Group.BAD && random.nextInt(100)>95) {
+            randomDir();
+        }
+
+
+    }
+
+    /**
+     * 敌方坦克随机调整方向
+     */
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
 

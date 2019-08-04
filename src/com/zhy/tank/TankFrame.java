@@ -97,7 +97,7 @@ public class TankFrame extends Frame {
         }
 
         for (int i = 0; i < this.bullets.size(); i++) {
-
+            //this.bullets.get(i).collideWith(this.myTank);
             for (int j = 0; j < this.tanks.size(); j++) {
                 this.bullets.get(i).collideWith(this.tanks.get(j));
             }

@@ -24,6 +24,8 @@ public class Tank {
 
     Random random = new Random();
 
+    Rectangle rectangle = new Rectangle();
+
     //创建一个爆照效果
     Explode e = null;
 
@@ -35,6 +37,10 @@ public class Tank {
         this.dir = dir;
         this.tf =tf;
         this.group = group;
+        this.rectangle.x = x;
+        this.rectangle.y = y;
+        this.rectangle.width = WIDTH;
+        this.rectangle.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -83,13 +89,35 @@ public class Tank {
                 y += SPEED;
                 break;
         }
-        if (this.group==Group.BAD && random.nextInt(10)>8) this.fire();
+        this.rectangle.x = x;
+        this.rectangle.y = y;
+        if (this.group == Group.BAD && random.nextInt(10) > 8) this.fire();
 
-        if (this.group == Group.BAD && random.nextInt(100)>95) {
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
             randomDir();
         }
+        boundCheck();
+    }
 
+    /**
+     * 坦克边界检查
+     */
+    private void boundCheck() {
+        if (this.x < 2) {
+            this.x = 2;
+        }
 
+        if (this.y < 28) {
+            this.y = 28;
+        }
+
+        if (this.x > this.tf.getWidth() - this.WIDTH - 2) {
+            this.x = this.tf.getWidth() - this.WIDTH - 2;
+        }
+
+        if (this.y > this.tf.getHeight() - this.HEIGHT - 2) {
+            this.y = this.tf.getHeight() - this.HEIGHT - 2;
+        }
     }
 
     /**

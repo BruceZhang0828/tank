@@ -17,6 +17,8 @@ public class Bullet {
     private int x,y;
     private Dir dir = Dir.DOWN;
 
+    Rectangle rectangle = new Rectangle();
+
      private Group group = Group.BAD;
 
    // private static final int WIDTH = 10,HEIGHT=10;
@@ -70,6 +72,10 @@ public class Bullet {
                 break;
         }
 
+
+        this.rectangle.x = x;
+        this.rectangle.y = y;
+
         if (x<0||y<0||x>TankFrame.GAME_WIDTH||y>TankFrame.GAME_HEIGHT) {
             removeFlag = true;
         }
@@ -88,6 +94,10 @@ public class Bullet {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+        this.rectangle.x = x;
+        this.rectangle.y = y;
+        this.rectangle.width = WIDTH;
+        this.rectangle.height = HEIGHT;
     }
 
     public int getX() {
@@ -122,10 +132,8 @@ public class Bullet {
 
         if (this.group == tank.getGroup()) return;
 
-        Rectangle r1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-        Rectangle r2 = new Rectangle(tank.getX(), tank.getY(), tank.WIDTH, tank.HEIGHT);
         //两个图片相交
-        if (r1.intersects(r2)){
+        if (this.rectangle.intersects(tank.rectangle)){
             this.die(); //子弹销毁
             tank.die(); //坦克销毁
         }

@@ -1,4 +1,4 @@
-package com.zhy.designPattern.factory;
+package com.zhy.designPattern.factoryMethod;
 
 public class Boomu implements Moveable {
     @Override

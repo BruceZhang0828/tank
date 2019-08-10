@@ -1,6 +1,15 @@
 package com.zhy.tank;
 
 public class FourDirFireStrategy implements FireStrategy{
+
+    private static final FourDirFireStrategy INSTANCE = new FourDirFireStrategy();
+
+    private FourDirFireStrategy(){}
+
+
+    public static FourDirFireStrategy getInstance(){
+        return INSTANCE;
+    }
     @Override
     public void fire(Tank tank) {
         int bX = tank.getX()+tank.WIDTH/2-Bullet.WIDTH/2;

@@ -58,7 +58,7 @@ public class Tank {
                 ex.printStackTrace();
             }
         }else{
-            fs = new FourDirFireStrategy();
+            fs = FourDirFireStrategy.getInstance();
         }
     }
 

@@ -1,6 +1,7 @@
 package com.zhy.tank;
 
 import java.awt.*;
+import java.io.File;
 import java.util.Random;
 
 public class Tank {
@@ -22,6 +23,10 @@ public class Tank {
 
     boolean removeFlag = false;
 
+    public TankFrame getTf() {
+        return tf;
+    }
+
     Random random = new Random();
 
     Rectangle rectangle = new Rectangle();
@@ -30,6 +35,8 @@ public class Tank {
     Explode e = null;
 
     private Group group = Group.BAD;
+
+    private FireStrategy fs;
 
     public Tank(int x, int y, Dir dir,TankFrame tf,Group group) {
         this.x = x;
@@ -41,6 +48,18 @@ public class Tank {
         this.rectangle.y = y;
         this.rectangle.width = WIDTH;
         this.rectangle.height = HEIGHT;
+
+
+        if (Group.BAD == group) {
+            try {
+                Class<?> clazz = Class.forName((String) PropertiesMgr.getConfig("badFS"));
+                fs = (FireStrategy) clazz.newInstance();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }else{
+            fs = new FourDirFireStrategy();
+        }
     }
 
     public void paint(Graphics g) {
@@ -132,9 +151,8 @@ public class Tank {
      * 坦克发射子弹方法
      */
     public void fire() {
-        int bX = this.x+this.WIDTH/2-Bullet.WIDTH/2;
-        int bY = this.y+this.HEIGHT/2-Bullet.HEIGHT/2;
-        tf.bullets.add (new Bullet(bX, bY,this.dir,this.tf,this.group)) ;
+
+        fs.fire(this);
     }
 
 

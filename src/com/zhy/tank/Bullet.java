@@ -98,6 +98,7 @@ public class Bullet {
         this.rectangle.y = y;
         this.rectangle.width = WIDTH;
         this.rectangle.height = HEIGHT;
+        tf.bullets.add(this);
     }
 
     public int getX() {

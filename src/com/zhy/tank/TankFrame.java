@@ -8,10 +8,16 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class TankFrame extends Frame {
 
-    static final int GAME_WIDTH = 1080,GAME_HEIGHT =960;
+    static int GAME_WIDTH = 0,GAME_HEIGHT = 0 ;
+    static {
+        GAME_WIDTH =   PropertiesMgr.getConfigInt("gameWidth");
+        GAME_HEIGHT =  PropertiesMgr.getConfigInt("gameHeight");
+    }
+
 
     Tank myTank = new Tank(200, 200, Dir.DOWN,this,Group.GOOD);
 

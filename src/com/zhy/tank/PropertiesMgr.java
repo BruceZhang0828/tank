@@ -18,10 +18,28 @@ public class PropertiesMgr {
     }
 
 
-
+    /**
+     *
+     * @param key
+     * @return
+     */
     public static Object getConfig(String key){
         if (props==null)return null;
         return props.get(key);
+    }
+
+
+    public static int getConfigInt(String key){
+        if (props==null)return 0;
+        String value= (String)props.get(key);
+        return Integer.parseInt(value);
+    }
+
+
+    public static String getConfigStr(String key){
+        if (props==null)return null;
+        String value= (String)getConfig(key);
+        return value;
     }
 
 

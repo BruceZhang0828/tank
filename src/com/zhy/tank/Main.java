@@ -6,7 +6,7 @@ public class Main {
         int initTank = Integer.parseInt((String) PropertiesMgr.getConfig("initTank"));
         //初始化敌方坦克
         for (int i = 0; i < initTank; i++) {
-            tankFrame.tanks.add(new Tank(50 + i * 80, 100, Dir.DOWN, tankFrame, Group.BAD));
+            tankFrame.tanks.add(tankFrame.gf.createTank(50, i*80, Dir.DOWN, Group.BAD, tankFrame));
         }
 
         while (true) {

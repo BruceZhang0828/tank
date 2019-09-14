@@ -1,14 +1,11 @@
-package com.zhy.tank;
+package com.zhy.tank.abstractfactory;
 
-import com.zhy.tank.abstractfactory.BaseTank;
-
+import com.zhy.tank.*;
 
 import java.awt.*;
-
 import java.util.Random;
 
-public class Tank extends BaseTank {
-
+public class RectTank extends BaseTank {
     //移动单元长度
     private static final int SPEED =5;
 
@@ -20,7 +17,7 @@ public class Tank extends BaseTank {
     //坦克的朝向
     private Dir dir = Dir.DOWN;
     //绘制坦克的窗口
-    private TankFrame tf;
+    public TankFrame tf;
     //坦克移动的状态
     private boolean moving = true;
 
@@ -41,7 +38,7 @@ public class Tank extends BaseTank {
 
     private FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir,TankFrame tf,Group group) {
+    public RectTank(int x, int y, Dir dir,TankFrame tf,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -77,20 +74,11 @@ public class Tank extends BaseTank {
             tf.tanks.remove(this);
             return;
         }
-        switch (dir) {
-            case LEFT:
-                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankL:ResourceMgr.badTankL, this.x, this.y,null);
-                break;
-            case UP:
-                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankU:ResourceMgr.badTankU, this.x, this.y,null);
-                break;
-            case RIGHT:
-                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankR:ResourceMgr.badTankR, this.x, this.y,null);
-                break;
-            case DOWN:
-                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodTankD:ResourceMgr.badTankD, this.x, this.y,null);
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(group == Group.GOOD ? Color.RED : Color.BLUE);
+        g.fillRect(x, y, 40, 40);
+        g.setColor(c);
+
         move();
 
     }
@@ -156,7 +144,13 @@ public class Tank extends BaseTank {
      */
     public void fire() {
 
-        fs.fire(this);
+        int bX = this.x + RectTank.WIDTH / 2 - Bullet.WIDTH / 2;
+        int bY = this.y + RectTank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+
+        Dir[] dirs = Dir.values();
+        for (Dir dir : dirs) {
+            tf.gf.createBullet(bX, bY, dir, group, tf);
+        };
     }
 
     @Override
@@ -207,4 +201,5 @@ public class Tank extends BaseTank {
     public void setGroup(Group group) {
         this.group = group;
     }
+
 }

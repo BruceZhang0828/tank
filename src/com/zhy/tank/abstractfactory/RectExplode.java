@@ -1,11 +1,12 @@
-package com.zhy.tank;
+package com.zhy.tank.abstractfactory;
 
-import com.zhy.tank.abstractfactory.BaseBullet;
-import com.zhy.tank.abstractfactory.BaseExplode;
+import com.zhy.tank.ResourceMgr;
+import com.zhy.tank.TankFrame;
 
 import java.awt.*;
 
-public class Explode extends BaseExplode {
+public class RectExplode extends BaseExplode{
+
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
@@ -15,7 +16,7 @@ public class Explode extends BaseExplode {
 
     private TankFrame tf;
 
-    public Explode(int x, int y,TankFrame tf) {
+    public RectExplode(int x, int y,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.tf = tf;

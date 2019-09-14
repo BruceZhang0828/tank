@@ -1,15 +1,13 @@
-package com.zhy.tank;
+package com.zhy.tank.abstractfactory;
 
-import com.zhy.tank.abstractfactory.BaseBullet;
-import com.zhy.tank.abstractfactory.BaseTank;
-import sun.java2d.loops.FillRect;
+import com.zhy.tank.Dir;
+import com.zhy.tank.Group;
+import com.zhy.tank.ResourceMgr;
+import com.zhy.tank.TankFrame;
 
 import java.awt.*;
 
-/**
- * 子弹类
- */
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet {
     //移动单元长度
     private static final int SPEED =10;
 
@@ -21,9 +19,9 @@ public class Bullet extends BaseBullet {
 
     Rectangle rectangle = new Rectangle();
 
-     private Group group = Group.BAD;
+    private Group group = Group.BAD;
 
-   // private static final int WIDTH = 10,HEIGHT=10;
+    // private static final int WIDTH = 10,HEIGHT=10;
 
     TankFrame tf;
 
@@ -36,25 +34,10 @@ public class Bullet extends BaseBullet {
         if (removeFlag) {
             this.tf.bullets.remove(this);
         } else {
-//            Color color = g.getColor();
-//            g.setColor(Color.RED);
-//            g.fillOval(this.x, this.y, WIDTH, HEIGHT);
-//            g.setColor(color);
-
-            switch (dir) {
-                case LEFT:
-                    g.drawImage(ResourceMgr.bulletL, this.x, this.y,null);
-                    break;
-                case UP:
-                    g.drawImage(ResourceMgr.bulletU, this.x, this.y,null);
-                    break;
-                case RIGHT:
-                    g.drawImage(ResourceMgr.bulletR, this.x, this.y,null);
-                    break;
-                case DOWN:
-                    g.drawImage(ResourceMgr.bulletD, this.x, this.y,null);
-                    break;
-            }
+            Color c = g.getColor();
+            g.setColor(Color.YELLOW);
+            g.fillRect(x, y, 20, 20);
+            g.setColor(c);
             move();
         }
     }
@@ -84,14 +67,14 @@ public class Bullet extends BaseBullet {
         }
     }
 
-    public Bullet(int x, int y, Dir dir,TankFrame tf) {
+    public RectBullet(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf = tf;
     }
 
-    public Bullet(int x, int y, Dir dir,TankFrame tf,Group group) {
+    public RectBullet(int x, int y, Dir dir,TankFrame tf,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;

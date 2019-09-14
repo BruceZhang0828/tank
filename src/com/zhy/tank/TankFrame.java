@@ -1,5 +1,7 @@
 package com.zhy.tank;
 
+import com.zhy.tank.abstractfactory.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -12,25 +14,25 @@ import java.util.Properties;
 
 public class TankFrame extends Frame {
 
-    static int GAME_WIDTH = 0,GAME_HEIGHT = 0 ;
+    public static int GAME_WIDTH = 0,GAME_HEIGHT = 0 ;
     static {
         GAME_WIDTH =   PropertiesMgr.getConfigInt("gameWidth");
         GAME_HEIGHT =  PropertiesMgr.getConfigInt("gameHeight");
     }
 
-
+    public GameFactory gf  = new RectFactory();
     Tank myTank = new Tank(200, 200, Dir.DOWN,this,Group.GOOD);
 
-    List<Bullet> bullets = new ArrayList<>();
+    public List<BaseBullet> bullets = new ArrayList<>();
 
-     List<Tank> tanks = new ArrayList<>();
+     public List<BaseTank> tanks = new ArrayList<>();
    // Bullet b = new Bullet(200, 200, Dir.DOWN);
 
     private boolean isExplode  = false;
 
     //创建一个爆照效果
     //Explode e = null;
-    List<Explode> explodes = new ArrayList<>();
+    public List<BaseExplode> explodes = new ArrayList<>();
     public boolean isExplode() {
         return isExplode;
     }
@@ -98,7 +100,7 @@ public class TankFrame extends Frame {
         }
 
         for (int i = 0; i < this.tanks.size(); i++) {
-            Tank tank = this.tanks.get(i);
+            BaseTank tank = this.tanks.get(i);
             tank.paint(g);
         }
 

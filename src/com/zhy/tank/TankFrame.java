@@ -5,12 +5,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+
 
 public class TankFrame extends Frame {
+
+    //使用model 作为门面
+    GameModel gameModel = new GameModel();
 
     static int GAME_WIDTH = 0,GAME_HEIGHT = 0 ;
     static {
@@ -19,25 +19,21 @@ public class TankFrame extends Frame {
     }
 
 
-    Tank myTank = new Tank(200, 200, Dir.DOWN,this,Group.GOOD);
 
-    List<Bullet> bullets = new ArrayList<>();
-
-     List<Tank> tanks = new ArrayList<>();
    // Bullet b = new Bullet(200, 200, Dir.DOWN);
 
-    private boolean isExplode  = false;
+    //private boolean isExplode  = false;
 
     //创建一个爆照效果
     //Explode e = null;
-    List<Explode> explodes = new ArrayList<>();
-    public boolean isExplode() {
-        return isExplode;
-    }
 
-    public void setExplode(boolean explode) {
+   /* public boolean isExplode() {
+        return isExplode;
+    }*/
+
+    /*public void setExplode(boolean explode) {
         isExplode = explode;
-    }
+    }*/
 
     public TankFrame() throws HeadlessException {
 
@@ -73,50 +69,12 @@ public class TankFrame extends Frame {
         g.drawImage(offScreenImage, 0, 0, null);
     }
 
-    /**
-     * 绘制方法
-     *
-     * @param g
-     */
+
+
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹的数量:" + this.bullets.size(), 10, 60);
-        g.drawString("敌人坦克数量:"+this.tanks.size(),10 , 80);
-        g.drawString("爆炸数量:"+this.explodes.size(),10 , 100);
-        g.setColor(c);
-        myTank.paint(g);
-
-        //使用迭代器容易出现异常ConcurrentModificationException
-        /*for (Bullet b :
-                bullets) {
-            b.paint(g);
-        }*/
-        for (int i = 0; i < this.bullets.size(); i++) {
-            this.bullets.get(i).paint(g);
-        }
-
-        for (int i = 0; i < this.tanks.size(); i++) {
-            Tank tank = this.tanks.get(i);
-            tank.paint(g);
-        }
-
-        for (int i = 0; i < this.bullets.size(); i++) {
-            //this.bullets.get(i).collideWith(this.myTank);
-            for (int j = 0; j < this.tanks.size(); j++) {
-                this.bullets.get(i).collideWith(this.tanks.get(j));
-            }
-        }
-
-        if (this.isExplode) {
-            for (int i = 0; i < explodes.size(); i++) {
-                explodes.get(i).paint(g);
-            }
-        }
-
+        gameModel.paint(g);
     }
-
 
     class KeyListener extends KeyAdapter {
 
@@ -167,7 +125,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    myTank.fire();
+                    gameModel.getMyTank().fire();
                     break;
                 default:
                     break;
@@ -179,6 +137,7 @@ public class TankFrame extends Frame {
          * 设置坦克朝向和移动状态
          */
         private void setMainTankDir() {
+            Tank myTank = gameModel.getMyTank();
             if (!bL && !bU && !bR && !bD) {
                 myTank.setMoving(false);
             } else {

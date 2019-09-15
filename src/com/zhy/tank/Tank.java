@@ -17,14 +17,14 @@ public class Tank {
     //坦克的朝向
     private Dir dir = Dir.DOWN;
     //绘制坦克的窗口
-    private TankFrame tf;
+    private GameModel gm;
     //坦克移动的状态
     private boolean moving = true;
 
     boolean removeFlag = false;
 
-    public TankFrame getTf() {
-        return tf;
+    public GameModel getGm() {
+        return gm;
     }
 
     Random random = new Random();
@@ -38,11 +38,11 @@ public class Tank {
 
     private FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir,TankFrame tf,Group group) {
+    public Tank(int x, int y, Dir dir,GameModel gm,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf =tf;
+        this.gm =gm;
         this.group = group;
         this.rectangle.x = x;
         this.rectangle.y = y;
@@ -70,7 +70,7 @@ public class Tank {
         g.setColor(color);*/
 
         if (this.removeFlag) {
-            tf.tanks.remove(this);
+            gm.tanks.remove(this);
             return;
         }
         switch (dir) {
@@ -130,12 +130,12 @@ public class Tank {
             this.y = 28;
         }
 
-        if (this.x > this.tf.getWidth() - this.WIDTH - 2) {
-            this.x = this.tf.getWidth() - this.WIDTH - 2;
+        if (this.x > TankFrame.GAME_WIDTH - this.WIDTH - 2) {
+            this.x = TankFrame.GAME_WIDTH  - this.WIDTH - 2;
         }
 
-        if (this.y > this.tf.getHeight() - this.HEIGHT - 2) {
-            this.y = this.tf.getHeight() - this.HEIGHT - 2;
+        if (this.y > TankFrame.GAME_HEIGHT - this.HEIGHT - 2) {
+            this.y = TankFrame.GAME_HEIGHT - this.HEIGHT - 2;
         }
     }
 
@@ -196,8 +196,8 @@ public class Tank {
         this.removeFlag = true;
         int bX = this.x+WIDTH/2-ResourceMgr.explodes[0].getWidth()/2;
         int bY = this.y+HEIGHT/2-ResourceMgr.explodes[0].getHeight()/2;
-        this.tf.explodes.add(new Explode(bX,bY, this.tf));
-        this.tf.setExplode(true);
+        this.gm.explodes.add(new Explode(bX,bY, this.gm));
+        //this.gm.setExplode(true);
     }
 
     public Group getGroup() {

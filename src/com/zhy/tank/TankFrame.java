@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
 
     //使用model 作为门面
-    GameModel gameModel = new GameModel();
+    //GameModel gameModel = new GameModel();
 
     static int GAME_WIDTH = 0,GAME_HEIGHT = 0 ;
     static {
@@ -73,7 +73,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        gameModel.paint(g);
+        GameModel.getInstance().paint(g);
     }
 
     class KeyListener extends KeyAdapter {
@@ -125,7 +125,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    gameModel.getMyTank().fire();
+                    GameModel.getInstance().getMyTank().fire();
                     break;
                 default:
                     break;
@@ -137,7 +137,7 @@ public class TankFrame extends Frame {
          * 设置坦克朝向和移动状态
          */
         private void setMainTankDir() {
-            Tank myTank = gameModel.getMyTank();
+            Tank myTank = GameModel.getInstance().getMyTank();
             if (!bL && !bU && !bR && !bD) {
                 myTank.setMoving(false);
             } else {

@@ -8,13 +8,9 @@ public class Explode extends GameObject{
 
     private int setp = 0;
 
-
-    private GameModel gm;
-
-    public Explode(int x, int y,GameModel gm) {
+    public Explode(int x, int y) {
         this.x = x;
         this.y = y;
-        this.gm = gm;
     }
 
     @Override
@@ -22,7 +18,7 @@ public class Explode extends GameObject{
         g.drawImage(ResourceMgr.explodes[setp++],this.x,this.y,null);
         if (this.setp>=ResourceMgr.explodes.length){
             setp = 0;
-            this.gm.gameObjects.remove(this);
+            GameModel.getInstance().gameObjects.remove(this);
         }
     }
 

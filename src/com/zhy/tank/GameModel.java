@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel {
-    Tank myTank = new Tank(200, 200, Dir.DOWN,this,Group.GOOD);
+
+    private static final GameModel  INTANCE = new GameModel();
+
+    Tank myTank = new Tank(200, 200, Dir.DOWN,Group.GOOD);
 
     List<GameObject> gameObjects = new ArrayList<>();
 
@@ -18,12 +21,20 @@ public class GameModel {
     //Collider ttc = new TankTankCollider();
 
     public Collider colliderChain = new ColliderChain();
-    public GameModel() {
+
+    private GameModel() {
         int initTank = Integer.parseInt((String) PropertiesMgr.getConfig("initTank"));
         //初始化敌方坦克
         for (int i = 0; i < initTank; i++) {
-            add(new Tank(50 + i * 80, 100, Dir.DOWN, this, Group.BAD));
+            add(new Tank(50 + i * 80, 100, Dir.DOWN, Group.BAD));
         }
+        //add(myTank);
+        //
+        // 初始化墙
+        add(new Wall(150, 150, 200, 50));
+        add(new Wall(550, 150, 200, 50));
+        add(new Wall(300, 300, 50, 200));
+        add(new Wall(550, 300, 50, 200));
     }
 
     /**
@@ -73,5 +84,11 @@ public class GameModel {
 
     public Tank getMyTank() {
         return myTank;
+    }
+
+
+
+    public static GameModel getInstance(){
+        return INTANCE;
     }
 }

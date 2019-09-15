@@ -22,16 +22,13 @@ public class Bullet extends GameObject{
 
    // private static final int WIDTH = 10,HEIGHT=10;
 
-    GameModel gm;
-
-
     private boolean removeFlag = false;
 
     @Override
     public void paint(Graphics g) {
 
         if (removeFlag) {
-            this.gm.gameObjects.remove(this);
+            GameModel.getInstance().gameObjects.remove(this);
         } else {
 //            Color color = g.getColor();
 //            g.setColor(Color.RED);
@@ -81,24 +78,22 @@ public class Bullet extends GameObject{
         }
     }
 
-    public Bullet(int x, int y, Dir dir,GameModel gm) {
+    public Bullet(int x, int y, Dir dir) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm = gm;
     }
 
-    public Bullet(int x, int y, Dir dir,GameModel gm,Group group) {
+    public Bullet(int x, int y, Dir dir,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm = gm;
         this.group = group;
         this.rectangle.x = x;
         this.rectangle.y = y;
         this.rectangle.width = WIDTH;
         this.rectangle.height = HEIGHT;
-        gm.add(this);
+        GameModel.getInstance().add(this);
     }
 
     public int getX() {

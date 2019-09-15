@@ -6,6 +6,9 @@ import java.util.Random;
 
 public class Tank extends GameObject{
 
+
+    int oldx,oldy;
+
     //移动单元长度
     private static final int SPEED =5;
 
@@ -14,16 +17,10 @@ public class Tank extends GameObject{
 
     //坦克的朝向
     private Dir dir = Dir.DOWN;
-    //绘制坦克的窗口
-    private GameModel gm;
     //坦克移动的状态
     private boolean moving = true;
 
     boolean removeFlag = false;
-
-    public GameModel getGm() {
-        return gm;
-    }
 
     Random random = new Random();
 
@@ -36,11 +33,10 @@ public class Tank extends GameObject{
 
     private FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir,GameModel gm,Group group) {
+    public Tank(int x, int y, Dir dir,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm =gm;
         this.group = group;
         this.rectangle.x = x;
         this.rectangle.y = y;
@@ -69,7 +65,7 @@ public class Tank extends GameObject{
         g.setColor(color);*/
 
         if (this.removeFlag) {
-            gm.gameObjects.remove(this);
+            GameModel.getInstance().gameObjects.remove(this);
             return;
         }
         switch (dir) {
@@ -92,6 +88,8 @@ public class Tank extends GameObject{
 
 
     private void move() {
+        oldx = x;
+        oldy = y;
         if (!this.moving) return;
         switch (dir) {
             case LEFT:
@@ -195,7 +193,7 @@ public class Tank extends GameObject{
         this.removeFlag = true;
         int bX = this.x+WIDTH/2-ResourceMgr.explodes[0].getWidth()/2;
         int bY = this.y+HEIGHT/2-ResourceMgr.explodes[0].getHeight()/2;
-        this.gm.add(new Explode(bX,bY, this.gm));
+        GameModel.getInstance().add(new Explode(bX,bY));
         //this.gm.setExplode(true);
     }
 
@@ -208,7 +206,7 @@ public class Tank extends GameObject{
     }
 
     /**
-     * 方向翻转
+     * 方向翻转 这个方法好像有点废
      */
     public void recoverDir() {
         Dir[] values = Dir.values();
@@ -225,5 +223,11 @@ public class Tank extends GameObject{
                 }
             }
         }
+    }
+
+
+    public void back(){
+        x = oldx;
+        y = oldy;
     }
 }

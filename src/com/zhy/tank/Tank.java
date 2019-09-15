@@ -4,7 +4,7 @@ import java.awt.*;
 import java.io.File;
 import java.util.Random;
 
-public class Tank {
+public class Tank extends GameObject{
 
     //移动单元长度
     private static final int SPEED =5;
@@ -12,8 +12,6 @@ public class Tank {
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
 
-    //坦克坐标
-    private int x,y;
     //坦克的朝向
     private Dir dir = Dir.DOWN;
     //绘制坦克的窗口
@@ -29,12 +27,12 @@ public class Tank {
 
     Random random = new Random();
 
-    Rectangle rectangle = new Rectangle();
+    public Rectangle rectangle = new Rectangle();
 
     //创建一个爆照效果
     Explode e = null;
 
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
 
     private FireStrategy fs;
 
@@ -62,6 +60,7 @@ public class Tank {
         }
     }
 
+    @Override
     public void paint(Graphics g) {
         //绘制一个正方形
         /*Color color = g.getColor();
@@ -70,7 +69,7 @@ public class Tank {
         g.setColor(color);*/
 
         if (this.removeFlag) {
-            gm.tanks.remove(this);
+            gm.gameObjects.remove(this);
             return;
         }
         switch (dir) {
@@ -196,7 +195,7 @@ public class Tank {
         this.removeFlag = true;
         int bX = this.x+WIDTH/2-ResourceMgr.explodes[0].getWidth()/2;
         int bY = this.y+HEIGHT/2-ResourceMgr.explodes[0].getHeight()/2;
-        this.gm.explodes.add(new Explode(bX,bY, this.gm));
+        this.gm.add(new Explode(bX,bY, this.gm));
         //this.gm.setExplode(true);
     }
 
@@ -206,5 +205,25 @@ public class Tank {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    /**
+     * 方向翻转
+     */
+    public void recoverDir() {
+        Dir[] values = Dir.values();
+        for (int i = 0; i < values.length; i++) {
+            if (values [i]==this.dir) {
+                if (i==0) {
+                    this.dir = values[2];
+                }else if(i==1){
+                    this.dir = values[3];
+                }else if (i==2){
+                    this.dir = values [0];
+                }else {
+                    this.dir = values [1];
+                }
+            }
+        }
     }
 }

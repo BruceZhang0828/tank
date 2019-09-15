@@ -7,19 +7,18 @@ import java.awt.*;
 /**
  * 子弹类
  */
-public class Bullet {
+public class Bullet extends GameObject{
     //移动单元长度
     private static final int SPEED =10;
 
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
-    private int x,y;
-    private Dir dir = Dir.DOWN;
+    public Dir dir = Dir.DOWN;
 
-    Rectangle rectangle = new Rectangle();
+    public Rectangle rectangle = new Rectangle();
 
-     private Group group = Group.BAD;
+     public Group group = Group.BAD;
 
    // private static final int WIDTH = 10,HEIGHT=10;
 
@@ -28,10 +27,11 @@ public class Bullet {
 
     private boolean removeFlag = false;
 
+    @Override
     public void paint(Graphics g) {
 
         if (removeFlag) {
-            this.gm.bullets.remove(this);
+            this.gm.gameObjects.remove(this);
         } else {
 //            Color color = g.getColor();
 //            g.setColor(Color.RED);
@@ -98,7 +98,7 @@ public class Bullet {
         this.rectangle.y = y;
         this.rectangle.width = WIDTH;
         this.rectangle.height = HEIGHT;
-        gm.bullets.add(this);
+        gm.add(this);
     }
 
     public int getX() {
@@ -131,7 +131,7 @@ public class Bullet {
      */
     public void collideWith(Tank tank) {
 
-        if (this.group == tank.getGroup()) return;
+        if (this.group == tank.getGroup()) return ;
 
         //两个图片相交
         if (this.rectangle.intersects(tank.rectangle)){
@@ -140,7 +140,7 @@ public class Bullet {
         }
     }
 
-    private void die() {
+    public void die() {
         this.removeFlag  = true;
     }
 }

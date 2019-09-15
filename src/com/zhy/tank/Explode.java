@@ -2,13 +2,12 @@ package com.zhy.tank;
 
 import java.awt.*;
 
-public class Explode {
+public class Explode extends GameObject{
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
     private int setp = 0;
 
-    private int x,y;
 
     private GameModel gm;
 
@@ -18,11 +17,12 @@ public class Explode {
         this.gm = gm;
     }
 
+    @Override
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[setp++],this.x,this.y,null);
         if (this.setp>=ResourceMgr.explodes.length){
             setp = 0;
-            this.gm.explodes.remove(this);
+            this.gm.gameObjects.remove(this);
         }
     }
 

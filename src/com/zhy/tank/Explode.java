@@ -22,6 +22,16 @@ public class Explode extends GameObject{
         }
     }
 
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
+
     public int getX() {
         return x;
     }
